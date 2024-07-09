@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,22 +47,27 @@ fun StartScreen(
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-            Spacer(modifier = modifier.height(50.dp))
+            Spacer(modifier = modifier.height(25.dp))
 
             Text(
-                text = "order App",
+                text = "BreakTime",
                 fontSize = 45.sp
             )
             Text(
-                text = "tagline here",
-                fontSize = 40.sp
+                text = "Study\nOrder\nRun to Lab\nRepeat ↺",
+                fontSize = 40.sp,
+                lineHeight = 40.sp
             )
 
-            Spacer(modifier = modifier.height(60.dp))
+            Spacer(modifier = modifier.height(45.dp))
 
             Text(
-                text = "\uD83D\uDE0B",
-                fontSize = 120.sp
+                text = "What do you want to order today ?",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                modifier = modifier
+
             )
 
             Row(
@@ -81,14 +88,15 @@ fun StartScreen(
                         modifier = modifier
                     ) {
                         Text(
-                            text = "eatables",
-                            fontSize = 25.sp
+                            text = "Eatables",
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Medium
                         )
                         Image(
                             painter = painterResource(id = R.drawable.eatables_front_page),
                             contentDescription = null ,  contentScale = ContentScale.Crop,
                             modifier = modifier
-                                .size(200.dp)
+                                .size(180.dp)
                                 .clickable {
                                     whichScreenToGo = "e"
                                     navController.navigate(route = MasterApp.Prod_catalog.name)
@@ -110,13 +118,14 @@ fun StartScreen(
                         modifier = modifier
                     ) {
                         Text(
-                            text = "beverages",
-                            fontSize = 25.sp
+                            text = "Beverages",
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Medium
                         )
                         Image(painter = painterResource(id = R.drawable.drinkables_front_page),
                             contentDescription = null, contentScale = ContentScale.Crop,
                             modifier = modifier
-                                .size(200.dp)
+                                .size(180.dp)
                                 .clickable {
                                     whichScreenToGo = "b"
                                     navController.navigate(route = MasterApp.Prod_catalog.name)

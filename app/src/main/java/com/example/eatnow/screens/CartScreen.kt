@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,6 +27,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -45,7 +48,12 @@ fun CartScreen(
 
     Scaffold(
         bottomBar = {
-            ProdCatalogBottomBar(navController = navController, bottomAppBarText = "Pay Now" , isThisCartScreen = true , viewModel = viewModel)
+            ProdCatalogBottomBar(
+                navController = navController,
+                bottomAppBarText = "Pay Now" ,
+                isThisCartScreen = true ,
+                viewModel = viewModel
+            )
         }
     ) {
         Column(
@@ -59,28 +67,16 @@ fun CartScreen(
             Text(
                 text = "Your Cart",
                 fontSize = 45.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color(0xff003566)
             )
-
-            cart?.let {
-                LazyColumn {
-                    items(cart!!) {
-                        if (it.qty != 0){
-                            EachCartProduct(
-                                element = it,
-                                incQtyByOne = {viewModel.incProdQty(id = it.id)},
-                                decQtyByOne = {viewModel.decProdQty(id = it.id)},
-                                EachprodTotal = viewModel.getEachTotalPrice(element = it)
-                            )
-                        }
-                    }
-                }
-            }
-
+            
+            Spacer(modifier = modifier.height(60.dp))
             if (viewModel.calculateTotalPrice(cart) ==0 ){
                 Text(
                     text = "Nothing Added In Cart",
                     textAlign = TextAlign.Center,
+                    color = Color(0xff3a0ca3),
                     lineHeight = 55.sp,
                     fontSize = 50.sp,
                     fontWeight = FontWeight.Medium,
@@ -88,6 +84,23 @@ fun CartScreen(
                         .weight(1f)
                 )
             }
+            else{
+                cart?.let {
+                    LazyColumn {
+                        items(cart!!) {
+                            if (it.qty != 0){
+                                EachCartProduct(
+                                    element = it,
+                                    incQtyByOne = {viewModel.incProdQty(id = it.id)},
+                                    decQtyByOne = {viewModel.decProdQty(id = it.id)},
+                                    EachprodTotal = viewModel.getEachTotalPrice(element = it)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 
@@ -135,7 +148,7 @@ fun EachCartProduct(
             Text(
                 text = "₹"+element.cost.toString(),
                 fontSize = 25.sp,
-                fontWeight = FontWeight.ExtraBold,
+                fontWeight = FontWeight.Medium,
                 modifier = modifier
             )
 
@@ -151,7 +164,12 @@ fun EachCartProduct(
                     prodQty = element.qty.toString()
                 )
 
-                Text(text = EachprodTotal)
+                Text(
+                    text = EachprodTotal,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.ExtraBold,
+
+                )
             }
 
         }
