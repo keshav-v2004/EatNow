@@ -72,7 +72,8 @@ fun CartScreen(
             Text(
                 text = "Nothing Added In Cart",
                 textAlign = TextAlign.Center,
-                fontSize = 60.sp,
+                lineHeight = 55.sp,
+                fontSize = 50.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = modifier
                     .weight(1f)
