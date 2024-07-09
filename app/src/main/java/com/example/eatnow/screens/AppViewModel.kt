@@ -67,6 +67,4 @@ class AppViewModel : ViewModel() {
         val cost = element.cost * element.qty
         return "₹"+cost.toString()
     }
-
-
 }
