@@ -7,6 +7,7 @@ import com.example.eatnow.MainApplication
 import com.example.eatnow.db.Food
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.cos
 
 class AppViewModel : ViewModel() {
 
@@ -60,7 +61,11 @@ class AppViewModel : ViewModel() {
         }
 
         return price
+    }
 
+    fun getEachTotalPrice(element :  Food) : String{
+        val cost = element.cost * element.qty
+        return "₹"+cost.toString()
     }
 
 

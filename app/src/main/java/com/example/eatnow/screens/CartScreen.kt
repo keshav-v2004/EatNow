@@ -48,7 +48,7 @@ fun CartScreen(
 
     ) {
         Text(
-            text = "YOUR CART",
+            text = "Your Cart",
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold
         )
@@ -61,7 +61,7 @@ fun CartScreen(
                             element = it,
                             incQtyByOne = {viewModel.incProdQty(id = it.id)},
                             decQtyByOne = {viewModel.decProdQty(id = it.id)},
-                            removeProdFromCart = {viewModel.setQtyZero(id = it.id)}
+                            EachprodTotal = viewModel.getEachTotalPrice(element = it)
                         )
                     }
                 }
@@ -70,15 +70,19 @@ fun CartScreen(
 
         if (viewModel.calculateTotalPrice(cart) ==0 ){
             Text(
-                text = "NOTHING ADDED IN CART",
+                text = "Nothing Added In Cart",
                 textAlign = TextAlign.Center,
                 fontSize = 60.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                modifier = modifier
+                    .weight(1f)
             )
         }
         else{
             Text(
                 text = "TOTAL"+viewModel.calculateTotalPrice(cart),
+                modifier = modifier
+                    .weight(1f)
 
             )
         }
@@ -93,7 +97,7 @@ fun CartScreen(
 fun EachCartProduct(
     decQtyByOne : ()->Unit,
     incQtyByOne : ()->Unit,
-    removeProdFromCart : ()->Unit,
+    EachprodTotal : String,
     element : Food,
     modifier: Modifier = Modifier
 )
@@ -146,14 +150,7 @@ fun EachCartProduct(
                     prodQty = element.qty.toString()
                 )
 
-                IconButton(
-                    onClick = removeProdFromCart
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null
-                    )
-                }
+                Text(text = EachprodTotal)
             }
 
         }
