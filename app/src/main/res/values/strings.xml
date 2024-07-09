@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">EatNow</string>
+
+    <string name="amul_kool_coffee">amul kool coffee</string>
+    <string name="elaichi">amul kool elaichi</string>
+    <string name="amul_kool_kesar">amul kool kesar</string>
+    <string name="blue_lays">blue lays</string>
+    <string name="cheese_maggie">cheese maggie</string>
+    <string name="coca_cola">coca cola</string>
+    <string name="drinkable_first_page">Drinkables</string>
+    <string name="eatables_front_page">Eatables</string>
+    <string name="green_lays">green lays</string>
+    <string name="hot_dog">hot dog</string>
+    <string name="lassi">lassi</string>
+    <string name="mad_angle_1">mad angle tomato</string>
+    <string name="mad_angle_2">mad angle masala</string>
+    <string name="masala_maggie">masala maggie</string>
+    <string name="pepsi">pepsi</string>
+    <string name="red_bull">red bull</string>
+    <string name="red_lays">red lays</string>
+    <string name="sandwich">sandwich</string>
+    <string name="sprite">sprite</string>
+    <string name="tea">tea</string>
+    <string name="veg_burger">veg burger</string>
+    <string name="hot_coffee">hot coffee</string>
+
+</resources>
