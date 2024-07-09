@@ -67,4 +67,14 @@ class AppViewModel : ViewModel() {
         val cost = element.cost * element.qty
         return "₹"+cost.toString()
     }
+
+    fun getCartStatus(allCart :  List<Food>?) : String {
+        var ans = 0
+        if (allCart != null) {
+            for (element in allCart)
+                ans = ans+element.qty
+        }
+
+        return ans.toString()
+    }
 }

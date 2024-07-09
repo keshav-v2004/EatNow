@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Card
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,94 +32,104 @@ import com.example.eatnow.whichScreenToGo
 fun StartScreen(
     navController: NavController,
     modifier: Modifier = Modifier) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-    ) {
-        Spacer(modifier = modifier.height(50.dp))
 
-        Text(
-            text = "order App",
-            fontSize = 45.sp
-        )
-        Text(
-            text = "tagline here",
-            fontSize = 40.sp
-        )
-
-        Spacer(modifier = modifier.height(60.dp))
-
-        Text(
-            text = "\uD83D\uDE0B",
-            fontSize = 120.sp
-        )
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
+    Scaffold(
+        topBar = {
+            EntryScreenAppBar()
+        }
+    ){
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
-                .weight(1f)
-                .padding(5.dp)
+                .padding(paddingValues = it)
+                .fillMaxSize()
+                .statusBarsPadding()
         ) {
-            Card(
+            Spacer(modifier = modifier.height(50.dp))
+
+            Text(
+                text = "order App",
+                fontSize = 45.sp
+            )
+            Text(
+                text = "tagline here",
+                fontSize = 40.sp
+            )
+
+            Spacer(modifier = modifier.height(60.dp))
+
+            Text(
+                text = "\uD83D\uDE0B",
+                fontSize = 120.sp
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = modifier
-                    .size(200.dp)
-                    .padding(10.dp)
+                    .weight(1f)
+                    .padding(5.dp)
             ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Card(
                     modifier = modifier
+                        .size(200.dp)
+                        .padding(10.dp)
                 ) {
-                    Text(
-                        text = "eatables",
-                        fontSize = 25.sp
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.eatables_front_page),
-                        contentDescription = null ,  contentScale = ContentScale.Crop,
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = modifier
-                            .size(200.dp)
-                            .clickable {
-                                whichScreenToGo = "e"
-                                navController.navigate(route = MasterApp.Prod_catalog.name)
-                            }
-                    )
+                    ) {
+                        Text(
+                            text = "eatables",
+                            fontSize = 25.sp
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.eatables_front_page),
+                            contentDescription = null ,  contentScale = ContentScale.Crop,
+                            modifier = modifier
+                                .size(200.dp)
+                                .clickable {
+                                    whichScreenToGo = "e"
+                                    navController.navigate(route = MasterApp.Prod_catalog.name)
+                                }
+                        )
 
 
+                    }
                 }
-            }
 
-            Card (
-                modifier = modifier
-                    .size(200.dp)
-                    .padding(10.dp)
-            ){
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Card (
                     modifier = modifier
-                ) {
-                    Text(
-                        text = "beverages",
-                        fontSize = 25.sp
-                    )
-                    Image(painter = painterResource(id = R.drawable.drinkables_front_page),
-                        contentDescription = null, contentScale = ContentScale.Crop,
+                        .size(200.dp)
+                        .padding(10.dp)
+                ){
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = modifier
-                            .size(200.dp)
-                            .clickable {
-                                whichScreenToGo = "b"
-                                navController.navigate(route = MasterApp.Prod_catalog.name)
-                            }
-                    )
+                    ) {
+                        Text(
+                            text = "beverages",
+                            fontSize = 25.sp
+                        )
+                        Image(painter = painterResource(id = R.drawable.drinkables_front_page),
+                            contentDescription = null, contentScale = ContentScale.Crop,
+                            modifier = modifier
+                                .size(200.dp)
+                                .clickable {
+                                    whichScreenToGo = "b"
+                                    navController.navigate(route = MasterApp.Prod_catalog.name)
+                                }
+                        )
 
+                    }
                 }
             }
         }
     }
+
+
 }
 
 @Preview

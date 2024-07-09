@@ -23,6 +23,7 @@ import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -56,48 +57,71 @@ fun ProdList(
 
     val beverages by viewModel.getBeverages().observeAsState()
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Button(
-            onClick = { navController.navigate(route = MasterApp.CartScreen.name) }
+    val cartStatus by viewModel.cartStatus.observeAsState()
+
+    Scaffold(
+        topBar = {
+            if (prod_catalog == "e"){
+                ProdCatalogTopAppBar(
+                    category = "Eatables",
+                    cartNumberItems = viewModel.getCartStatus(cartStatus)
+                )
+            }
+            else{
+                ProdCatalogTopAppBar(
+                    category = "Beverages",
+                    cartNumberItems = viewModel.getCartStatus(cartStatus)
+                )
+            }
+            
+        },
+        bottomBar = {
+            ProdCatalogBottomBar(navController = navController , bottomAppBarText = "Checkout" , isThisCartScreen = false , viewModel = viewModel )
+        }
+    ){
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .padding(paddingValues = it)
+                .fillMaxWidth()
         ) {
-            Text(text = "go to cart")
-        }
+//            Button(
+//                onClick = { navController.navigate(route = MasterApp.CartScreen.name) }
+//            ) {
+//                Text(text = "go to cart")
+//            }
+//
+//            Spacer(modifier = modifier.height(60.dp))
 
-        Spacer(modifier = modifier.height(60.dp))
-
-        if (prod_catalog == "e") {
-            eatables?.let {
-                LazyColumn(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = modifier
-                        .fillMaxWidth()
-                ) {
-                    items(eatables!!){
-                        EachProdCard(element = it , viewModel = viewModel)
+            if (prod_catalog == "e") {
+                eatables?.let {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = modifier
+                            .fillMaxWidth()
+                    ) {
+                        items(eatables!!){
+                            EachProdCard(element = it , viewModel = viewModel)
+                        }
                     }
                 }
             }
-        }
-        else{
-            beverages?.let {
-                LazyColumn(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = modifier
-                        .fillMaxWidth()
-                ) {
-                    items(beverages!!){
-                        EachProdCard(element = it , viewModel = viewModel)
+            else{
+                beverages?.let {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = modifier
+                            .fillMaxWidth()
+                    ) {
+                        items(beverages!!){
+                            EachProdCard(element = it , viewModel = viewModel)
+                        }
                     }
                 }
             }
-        }
 
 //        LazyColumn(
 //            verticalArrangement = Arrangement.Center,
@@ -109,7 +133,9 @@ fun ProdList(
 //                EachProdCard(element = it , viewModel = viewModel)
 //            }
 //        }
+        }
     }
+
 
 
 
@@ -126,7 +152,7 @@ fun EachProdCard(
 
     Card(
         modifier = modifier
-            .clip(RoundedCornerShape(topStart = 10.dp , bottomEnd = 10.dp))
+            .clip(RoundedCornerShape(topStart = 10.dp, bottomEnd = 10.dp))
             .padding(10.dp)
     ) {
         Row(
@@ -142,7 +168,7 @@ fun EachProdCard(
                 contentDescription = null ,
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                .size(100.dp)
+                    .size(100.dp)
                     .clip(RoundedCornerShape(10.dp))
             )
 

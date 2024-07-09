@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,67 +32,66 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.eatnow.db.Food
 
 @Composable
 fun CartScreen(
+    navController: NavController,
     viewModel: AppViewModel,
     modifier: Modifier = Modifier
 ) {
     val cart by viewModel.cartStatus.observeAsState()
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .statusBarsPadding()
-
+    Scaffold(
+        bottomBar = {
+            ProdCatalogBottomBar(navController = navController, bottomAppBarText = "Pay Now" , isThisCartScreen = true , viewModel = viewModel)
+        }
     ) {
-        Text(
-            text = "Your Cart",
-            fontSize = 45.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .padding(paddingValues = it)
+                .statusBarsPadding()
 
-        cart?.let {
-            LazyColumn {
-                items(cart!!) {
-                    if (it.qty != 0){
-                        EachCartProduct(
-                            element = it,
-                            incQtyByOne = {viewModel.incProdQty(id = it.id)},
-                            decQtyByOne = {viewModel.decProdQty(id = it.id)},
-                            EachprodTotal = viewModel.getEachTotalPrice(element = it)
-                        )
+        ) {
+            Text(
+                text = "Your Cart",
+                fontSize = 45.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            cart?.let {
+                LazyColumn {
+                    items(cart!!) {
+                        if (it.qty != 0){
+                            EachCartProduct(
+                                element = it,
+                                incQtyByOne = {viewModel.incProdQty(id = it.id)},
+                                decQtyByOne = {viewModel.decProdQty(id = it.id)},
+                                EachprodTotal = viewModel.getEachTotalPrice(element = it)
+                            )
+                        }
                     }
                 }
             }
+
+            if (viewModel.calculateTotalPrice(cart) ==0 ){
+                Text(
+                    text = "Nothing Added In Cart",
+                    textAlign = TextAlign.Center,
+                    lineHeight = 55.sp,
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = modifier
+                        .weight(1f)
+                )
+            }
         }
-
-        if (viewModel.calculateTotalPrice(cart) ==0 ){
-            Text(
-                text = "Nothing Added In Cart",
-                textAlign = TextAlign.Center,
-                lineHeight = 55.sp,
-                fontSize = 50.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = modifier
-                    .weight(1f)
-            )
-        }
-        else{
-            Text(
-                text = "TOTAL"+viewModel.calculateTotalPrice(cart),
-                modifier = modifier
-                    .weight(1f)
-
-            )
-        }
-
-
-
-
     }
+
+
 }
 
 @Composable

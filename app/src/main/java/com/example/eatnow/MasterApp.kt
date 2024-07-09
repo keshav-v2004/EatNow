@@ -38,7 +38,7 @@ fun MasterApp(
         })
 
         composable(route = MasterApp.CartScreen.name , content = {
-            CartScreen(viewModel = viewModel)
+            CartScreen(viewModel = viewModel , navController = navController)
         })
     }
 }
